@@ -37,11 +37,6 @@ export default {
       this.last = newId + 1;
       
     },
-    //更改勾選狀態
-    checkTodo(id) {
-      const target = this.todoList.findIndex((todo) => todo.id === id);
-      this.todoList[target].done = !this.todoList[target].done;
-    },
     //編輯todo
     editTodo(id){
       const target = this.todoList.findIndex((todo) => todo.id === id);
@@ -118,7 +113,7 @@ export default {
           <div class="list-item" v-for="todo in filterTodoList" :key="todo.id"
           :class="{'add':last == todo.id, 'del':del === todo.id,}">
             <div class="check">
-              <input type="checkbox" @change='checkTodo(todo.id)' class="checkbox" :checked="todo.done">
+              <input type="checkbox" class="checkbox" v-model="todo.done">
             </div>
             <span class="todoText" :class="{'deleteline':todo.done}">{{ todo.todoText }}</span>
 
