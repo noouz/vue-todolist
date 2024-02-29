@@ -30,7 +30,13 @@ export default {
       }
       const last = this.todoList.at(-1) ?? 0;
       const newId = last.id ?? 0;
-      const addTodo = { id: newId + 1, todoText: newTodo, done: false };
+      const addTodo = { 
+        id: newId + 1, 
+        todoText: newTodo,
+        done: false ,
+        editSwitch:false,
+        editText:'',
+      };
       this.todoList.push(addTodo);
       this.newTodoText = '';
       //添加動畫
@@ -38,13 +44,15 @@ export default {
       
     },
     //編輯todo
-    editTodo(id){
-      const target = this.todoList.findIndex((todo) => todo.id === id);
-      const content = prompt('修改執行事項');
-      if (content == '' || content == null) {
-        return;
+    editMsg(item){
+      item.editSwitch = !item.editSwitch;
+      if(item.editSwitch === false){
+        if(item.edit !== ''){
+          item.todoText = item.editText;
+        }
+        item.todoText = item.editText;
       }else{
-        this.todoList[target].todoText = content;
+        item.editText = item.todoText;
       }
     },
     //刪除todo
@@ -104,8 +112,8 @@ export default {
         </div>
 
         <div class="title">
-          <span class="w-3/12">執行</span>
-          <span class="w-5/12">事項</span>
+          <span class="w-2/12">執行</span>
+          <span class="w-6/12">事項</span>
           <span class="w-4/12">編輯/刪除</span>
         </div>
 
@@ -115,10 +123,11 @@ export default {
             <div class="check">
               <input type="checkbox" class="checkbox" v-model="todo.done">
             </div>
-            <span class="todoText" :class="{'deleteline':todo.done}">{{ todo.todoText }}</span>
+            <span class="todoText" :class="{'deleteline':todo.done}" v-if="todo.editSwitch === false">{{ todo.todoText }}</span>
+            <input v-else type="text" class="edit-input" v-model="todo.editText">
 
             <div class="list-btns">
-              <div class="list-btn edit" @click='editTodo(todo.id)'>
+              <div class="list-btn edit" @click='editMsg(todo)' @keyup.enter='editMsg(todo)'>
                 <span class="material-symbols-outlined">edit_square</span>
               </div>
               <div class="list-btn delete" @click='deleteTodo(todo.id)'>
@@ -167,6 +176,9 @@ export default {
 .top-input {
   @apply border border-gray-400 rounded-md w-10/12 md:w-11/12 focus:outline-gray-500 active:outline-gray-500 pl-[10px];
 }
+.edit-input{
+  @apply border border-gray-400 rounded-md w-5/12 mr-auto  focus:outline-gray-500 active:outline-gray-500 pl-[5px] ml-1;
+}
 
 .button {
   @apply shadow-sm rounded-md p-2 px-3 flex cursor-pointer bg-gradient-to-t from-indigo-500 to-pink-200 text-white;
@@ -197,7 +209,7 @@ export default {
 }
 
 .check {
-  @apply w-3/12 h-5
+  @apply w-2/12 h-5
 }
 
 .checkbox {
@@ -205,7 +217,7 @@ export default {
 }
 
 .todoText {
-  @apply w-5/12
+  @apply w-6/12 flex flex-wrap break-all pr-1 pl-2
 }
 
 .list-btns {
