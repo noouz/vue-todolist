@@ -14,7 +14,7 @@ export default {
     if (localStorage.todoList26) {
       this.todoList = JSON.parse(localStorage.todoList26);
     };
-    //提醒存當前資料123
+    //提醒存當前資料
     //window.onbeforeunload = (e) => {return e};
   },
   methods: {
