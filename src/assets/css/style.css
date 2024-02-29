@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&family=Noto+Sans+TC:wght@100..900&display=swap');
+/* @import url('https://www.tailwindcss-animated.com/configurator.html'); */
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+/* hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(111, 121, 134);
+}
